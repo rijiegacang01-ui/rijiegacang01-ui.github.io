@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RIJIE SCAM EVIDENCE ORGANIZER</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--text:#edf4ff;--muted:#a8b7cc;--line:#2b3c55;--accent:#6ee7b7;--warn:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#0b1220,#14263b);color:var(--text);font:16px/1.5 system-ui, sans-serif}
+header,footer{max-width:1000px;margin:auto;padding:24px 18px}h1{margin:0 0 8px;font-size:clamp(1.7rem,4vw,2.4rem)}p,small,footer{color:var(--muted)}
+main{max-width:1000px;margin:auto;padding:0 18px 36px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr))}
+section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}h2{font-size:1.15rem;margin:0 0 12px}
+label{display:block;font-weight:650;margin:12px 0 5px}input,textarea,select{width:100%;border:1px solid #3b506e;background:#0b1628;color:var(--text);padding:11px 12px;border-radius:9px;font:inherit}textarea{min-height:90px;resize:vertical}
+button{border:0;border-radius:9px;padding:11px 14px;font-weight:750;cursor:pointer;background:var(--accent);color:#06251c;margin:5px 4px 5px 0}.secondary{background:#2b3c55;color:var(--text)}.danger{background:#6b2936;color:#fff}
+#report{white-space:pre-wrap;background:#091321;border:1px solid var(--line);border-radius:10px;padding:14px;min-height:180px;overflow-wrap:anywhere}
+.notice{border-left:4px solid var(--warn);padding:10px 12px;background:#352e1b;border-radius:6px;color:#fff1c9}
+</style></head>
+<body>
+<header><h1>🛡️ RIJIE SCAM EVIDENCE ORGANIZER</h1><p>Organize details and prepare a report. This tool does not trace a person's live location, IP address, or private home address.</p></header>
+<main>
+<section><h2>1. Incident details</h2>
+<label for="platform">Where did it happen?</label><select id="platform"><option>Facebook / Messenger</option><option>GCash</option><option>Online selling / marketplace</option><option>Bank transfer</option><option>Other</option></select>
+<label for="date">Date and approximate time</label><input id="date" placeholder="e.g. 22 Oct 2026, around 4 PM">
+<label for="summary">What happened?</label><textarea id="summary" placeholder="Describe what was promised, what you paid/sent, and what happened next."></textarea>
+<label for="amount">Amount involved (if any)</label><input id="amount" placeholder="e.g. ₱1,500 or none">
+<label for="transaction">Transaction/reference ID</label><input id="transaction" placeholder="Never enter passwords, PINs, or OTPs"></section>
+<section><h2>2. Public account / contact details</h2>
+<label for="profile">Public profile or listing URL</label><input id="profile" type="url" placeholder="https://...">
+<label for="phone">Phone number shown to you (optional)</label><input id="phone" inputmode="tel" placeholder="Include country code if known">
+<label for="name">Name/display name used</label><input id="name" placeholder="Name shown on profile or payment receipt">
+<label for="evidence">Evidence you have</label><textarea id="evidence" placeholder="e.g. screenshots of chat, payment receipt, listing URL, dates. Keep originals."></textarea>
+<small>Only record details you already received or that are publicly shown. Don't break into accounts or publish private information.</small></section>
+<section><h2>3. Build your report</h2><p>Generate a summary to copy or save and send to the platform, payment provider, or authorities.</p>
+<button onclick="buildReport()">Generate report</button><button class="secondary" onclick="copyReport()">Copy report</button><button class="secondary" onclick="downloadReport()">Save .txt</button><button class="danger" onclick="clearForm()">Clear form</button>
+<label>Report preview</label><div id="report" aria-live="polite">Your report will appear here.</div></section>
+<section><h2>4. Safe next steps</h2><ul>
+<li>Save screenshots of the full conversation, profile/listing URL, payment receipt, and reference number.</li>
+<li>Report the account/listing inside the app and contact your e-wallet or bank through its official app/site.</li>
+<li>If money was taken, ask a trusted adult to help contact the payment provider and make an official report.</li>
+<li>Never share your password, PIN, OTP, recovery code, or full card details with anyone claiming they can trace the scammer.</li></ul>
+<div class="notice"><strong>Privacy note:</strong> This page works locally in your browser. It does not look up phone numbers online or send your entries to a server. Avoid entering passwords, PINs, OTPs, or unnecessary sensitive data.</div></section>
+</main><footer>Use lawful reporting channels. A phone number or profile alone cannot reliably establish a person's real identity or address.</footer>
+<script>
+const $=id=>document.getElementById(id), val=id=>$(id).value.trim()||"Not provided";
+function buildReport(){const lines=["SCAM INCIDENT REPORT","====================","Platform: "+val("platform"),"Date/time: "+val("date"),"Amount involved: "+val("amount"),"Transaction/reference ID: "+val("transaction"),"Public profile/listing URL: "+val("profile"),"Phone number shown: "+val("phone"),"Display name: "+val("name"),"","INCIDENT SUMMARY",val("summary"),"","AVAILABLE EVIDENCE",val("evidence"),"","Requested action: Please review this incident and advise on next steps.","","Details are based on information provided by the reporter and have not been independently verified."];$("report").textContent=lines.join("\n")}
+async function copyReport(){if($("report").textContent==="Your report will appear here.")buildReport();try{await navigator.clipboard.writeText($("report").textContent);alert("Report copied.")}catch(e){const a=document.createElement("textarea");a.value=$("report").textContent;document.body.appendChild(a);a.select();document.execCommand("copy");a.remove();alert("Copy attempted; check your clipboard.")}}
+function downloadReport(){if($("report").textContent==="Your report will appear here.")buildReport();const blob=new Blob([$("report").textContent],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="scam-incident-report.txt";a.click();URL.revokeObjectURL(url)}
+function clearForm(){if(!confirm("Clear all fields? Save your report first if needed."))return;["date","summary","amount","transaction","profile","phone","name","evidence"].forEach(id=>$(id).value="");$("platform").selectedIndex=0;$("report").textContent="Your report will appear here."}
+</script></body></html>
